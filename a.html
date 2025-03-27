@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevBoard</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #f8fafc;
+            padding: 20px;
+            transition: background 0.5s;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            height: 90vh;
+        }
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        
+        .navbar-right {
+            display: flex;
+            align-items: center;
+        }
+        .navbar-right span {
+            font-size: 18px;
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .color-btn {
+            width: 25px;
+            height: 25px;
+            background: linear-gradient(45deg, red, blue, green);
+            border-radius: 50%;
+            cursor: pointer;
+        }
+        .top-container {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            flex: 1;
+        }
+        .blue-card {
+            background: #6366f1;
+            color: white;
+        }
+        .main-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            align-items: start;
+            flex-grow: 1;
+        }
+        .task-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            height: 100%;
+        }
+        .task-card {
+            padding: 20px;
+            position: relative;
+        }
+        .task-title {
+            font-weight: bold;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        .task-desc {
+            color: gray;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        .deadline {
+            font-size: 13px;
+            color: black;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .complete-btn {
+            background: blue;
+            color: white;
+            padding: 7px 12px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .complete-btn:disabled {
+            background: gray;
+            cursor: not-allowed;
+        }
+        .activity-log {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            padding: 15px;
+            position: relative;
+            top: -20px;
+            
+        }
+        .log-list {
+            flex-grow: 1;
+            overflow-y: auto;
+        }
+        .log-item {
+            font-size: 14px;
+            background: #eef2ff;
+            padding: 5px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        .clear-btn {
+            width:20%;
+            background:blue;
+            color: white;
+            border: none;
+            padding: 20px 05px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body style="
+    transform: scale(0.5); /* Scale down to 50% */
+    transform-origin: top left; /* Adjust the scaling point */
+    width: 200%; /* Make sure it doesn't shrink */
+    height: 200%;
+">
+
+    <div class="container" style="width:90%">
+        
+        <div class="navbar" style="height:100px">
+            <img src="logo (1).png">
+            <div> <span style="font-size:40px;font-weight:normal;margin-right:0px ;">Dev</span><span style="font-size:40px;font-weight:bold;margin-right:2100px">Board</span></div>
+            <div class="navbar-right">
+                <img style="margin-right:20px;" src="checkbox.png">
+                <span id="completed-count" style="font-size:35px;margin-right:50px;">23</span>
+                <img class="color-btn" onclick="changeColor()"  style="margin-right:500px;" src="theme-btn.png">
+               
+            </div>
+        </div>
+
+       
+        <div class="card">    
+            <div class="top-container" style="width: 66%; height: 8%; display: flex; gap: 10px;">
+           <div class="card" style="border-radius: 10px; flex: 25%; padding: 10px; display: flex; align-items: center; justify-content: space-between; position: relative;background-color:rgb(236, 245, 252);">
+
+              
+
+        
+                
+                
+                <div style="text-align:right;margin-right:50px">
+                    <img src="checkbox.png" style="margin-left:150px;margin-top:20px;font-size:60px;" >
+                    <b style="width:90%;font-size: 25px;font-weight:500 ;margin-left:50px;">Task Assigned</b><br>
+                    <span id="task-count" style="font-size:40px;margin-right:100px;font-weight: bold;">05</span>
+                </div>
+            </div>
+        
+            <div class="card blue-card" style="flex: 40%;width:90%; padding:10px;">
+                <img src="board.png"><b style="font-size: 30px;">Discover Something New Today!</b>
+                
+            </div>
+            
+            
+        
+            <div class="card" style="flex: 20%; padding: 10px;width:90%;">
+                <img style="margin-left:20px;" src="calender.png">
+                <span style="font-size:30px;font-weight: lighter;margin-left:20px;"> Thu,<br></span><span style="font-size:30px;font-weight: bold;margin-left: 70px;">Mar 27 2025</span>
+            </div>
+        </div>
+        
+        
+        
+        
+
+      
+        <div class="main-container">
+            <div class="task-grid">
+                <div class="task-card card" style="border-radius: 8%;background-color: rgb(236, 245, 252);width:90%;height:500px">
+                    <button style="border-radius:10%;font-size:160%;border-color:white;background-color:white;color:rgb(33, 32, 32);padding:10px 10px">ShopEase</button><br><br>
+                    <span class="task-title"><h6 style="font-size:40px;font-weight:599;">Fix Mobile Button Issue</h6></span>
+                    <button style="background-color:white;border-radius: 10px;width:450px;height:150px;border-color: white;"><p style="font-size:30px;margin-right:140px;color: gray;">Debug using chrome <br> </p><p style="font-size:30px;margin-right:0px;color: gray;">DevTools,check for ovarlapping</p>></button><br><br><br>
+                    <b style="font-size:20px">Deadline</b> <br><p class="deadline" style="font-size: 25px;"> 21 March 2025</p><br>
+                    <button  class="complete-btn" style="height:50px;width:150px" onclick="completeTask(this, 'Fix Mobile Button Issue')"><b style="font-size:25px">Completed</b></button>
+                </div>
+
+                <div class="task-card card" style="border-radius: 8%;background-color: rgb(236, 245, 252);width:90%;height:500px">
+                    <button style="border-radius:10%;font-size:160%;border-color:white;background-color:white;size:180%;color:rgb(33, 32, 32);border-width:220%;padding:10px 10px">CloudSync</button><br><br>
+                    <span class="task-title"><h6 style="font-size:40px;font-weight:599;">Add Dark Mode</h6></span>
+                    <button style="background-color:white;border-radius: 10px;width:450px;height:150px;border-color: white;"><p style="font-size:30px;margin-right:40px;color: gray;">Store the user's preference in localstroage,update CSS va..</p></button><br><br><br>
+                    <b style="font-size:20px">Deadline</b> <br><p class="deadline" style="font-size: 25px;"> 21 March 2025</p>
+                    <button  class="complete-btn" style="height:50px;width:150px" onclick="completeTask(this, 'Add Dark Mode')"><b style="font-size:25px">Completed</b></button>
+                </div>
+
+                <div class="task-card card" style="border-radius: 8%;background-color: rgb(236, 245, 252);width:90%;height:500px">
+                    <button style="border-radius:10%;font-size:160%;border-color:white;background-color:white;size:180%;color:rgb(33, 32, 32);border-width:220%;padding:10px 10px">SwiptPay</button><br><br>
+                    <span class="task-title"><h6 style="font-size:40px;font-weight:599;">Optimize Home Page</h6></span>
+                    <button style="background-color:white;border-radius: 10px;width:450px;height:150px;border-color: white;"><p style="font-size:30px;margin-right:140px;color: gray;">Debug using chrome <br> </p><p style="font-size:30px;margin-right:0px;color: gray;">DevTools,check for ovarlapping</p></button><br><br><br>
+                    <b style="font-size:20px">Deadline</b> <br><p class="deadline" style="font-size: 25px;"> 21 March 2025</p>
+                    <button  class="complete-btn" style="height:50px;width:150px" onclick="completeTask(this, 'Optimize Home Page')"><b style="font-size:25px">Completed</b></button>
+                </div>
+
+                <div class="task-card card" style="border-radius: 8%;background-color: rgb(236, 245, 252);width:90%;height:500px">
+                    <button style="border-radius:10%;font-size:160%;border-color:white;background-color:white;size:180%;color:rgb(33, 32, 32);border-width:220%;padding:10px 10px">Meta</button><br><br>
+                    <span class="task-title"><h6 style="font-size:40px;font-weight:599;">Add New Emoji 🤲</h6></span>
+                    <button style="background-color:white;border-radius: 10px;width:450px;height:150px;border-color: white;"><p style="font-size:30px;margin-right:140px;color: gray;">Debug using chrome <br> </p><p style="font-size:30px;margin-right:0px;color: gray;">DevTools,check for ovarlapping</p></button><br><br><br>
+                    <b style="font-size:20px">Deadline</b> <br><p class="deadline" style="font-size: 25px;"> 21 March 2025</p>
+                    <button  class="complete-btn" style="height:50px;width:150px" onclick="completeTask(this, 'Add New Emoji 🤲')"><b style="font-size:25px">Completed</b></button>
+                </div>
+
+                <div class="task-card card" style="border-radius: 8%;background-color: rgb(236, 245, 252);width:90%;height:500px">
+                    <button style="border-radius:10%;font-size:160%;border-color:white;background-color:white;size:180%;color:rgb(33, 32, 32);border-width:220%;padding:10px 10px">Google LLC</button><br><br>
+                    <span class="task-title"><h6 style="font-size:40px;font-weight:599;">Integrate OpenAI API</span>
+                        <button style="background-color:white;border-radius: 10px;width:450px;height:150px;border-color: white;"><p style="font-size:30px;margin-right:140px;color: gray;">Debug using chrome <br> </p><p style="font-size:30px;margin-right:0px;color: gray;">DevTools,check for ovarlapping</p></button><br>
+                    <b style="font-size:20px">Deadline</b> <br><p class="deadline" style="font-size: 25px;"> 21 March 2025</p>
+                    <button  class="complete-btn" style="height:50px;width:150px" onclick="completeTask(this, 'Integrate OpenAI API')"><b style="font-size:25px">Completed</b></button>
+                </div>
+
+                <div class="task-card card" style="border-radius: 8%;background-color: rgb(236, 245, 252);width:90%;height:500px">
+                    <button style="border-radius:10%;font-size:160%;border-color:white;background-color:white;size:180%;color:rgb(33, 32, 32);border-width:220%;padding:10px 10px">Giassdoar</button><br><br>
+                    <span class="task-title"><h6 style="font-size:40px;font-weight:599;">Improve Job Searching</h6></span>
+                    <button style="background-color:white;border-radius: 10px;width:450px;height:150px;border-color: white;"><p style="font-size:30px;margin-right:140px;color: gray;">Debug using chrome <br> </p><p style="font-size:30px;margin-right:0px;color: gray;">DevTools,check for ovarlapping</p></button><br><br><br>
+                    <b style="font-size:20px">Deadline</b> <br><p class="deadline" style="font-size: 25px;"> 21 March 2025</p>
+                    <button class="complete-btn" style="height:50px;width:150px" onclick="completeTask(this, 'Improve Job Searching')"><b style="font-size:25px">Completed</b></button>
+                </div>
+            </div>
+
+            
+            <div class="activity-log card">
+                
+                <b style="font-size: 30px;font-weight:599;margin-left:200px;"><img src="activity.png"> Activity Log</b>
+                <button class="clear-btn" style="margin-left:200px" onclick="clearHistory()"><p style="font-size:20px">Clear History</p></button>
+                <div id="activity-log" class="log-list"></div>
+            </div>
+        </div>
+        
+    </div>
+
+        
+        
+
+        
+               
+
+
+<script>
+    function completeTask(button, taskName) {
+        button.disabled = true;
+        let taskCount = document.getElementById("task-count");
+        taskCount.innerText = String(Number(taskCount.innerText) - 1);
+
+        let completedCount = document.getElementById("completed-count");
+        alert("Board updated successfully");
+        completedCount.innerText = String(Number(completedCount.innerText) + 1);
+
+        let log = document.getElementById("activity-log");
+        log.innerHTML += `<div class='log-item'>Completed "${taskName}" at ${new Date().toLocaleTimeString()}</div>`;
+    }
+
+    function clearHistory() {
+        document.getElementById("activity-log").innerHTML = "";
+    }
+
+    function changeColor() {
+            
+            let randomColor = '#' + Math.floor(Math.random()*16777215).toString(16);
+            
+            
+            document.body.style.backgroundColor = randomColor;
+    }
+    
+
+   
+    
+
+
+</script>
+
+</body>
+</html>
+
+
+
